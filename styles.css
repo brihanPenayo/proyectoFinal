@@ -37,9 +37,6 @@ header {
     gap: 3rem;
     grid-template-areas: "titulo titulo titulo titulo btnAgregar buscar btnTema";
     /* vertical-align: middle; */
-
-
-
     /* display: flex; */
     position: fixed;
     width: 100%;
@@ -165,11 +162,14 @@ input {
     transition: all 400ms ease;
 }
 
-#elements div:active {
-    background: var(--color-Header);
-    box-shadow: 0px 0px 0.8rem 0px rgba(255, 0, 0, 1);
-    outline: auto;
-    transition: all 400ms ease;
+
+
+.colorsvg {
+    /* position: absolute; */
+    color: var(--color-Letras);
+    margin: auto;
+    /* margin-right: 50%; */
+    /* margin-bottom: 0; */
 }
 
 #btnAgregar {
@@ -215,11 +215,45 @@ input {
     margin: auto;
     margin-top: -3%;
     border-bottom: 0.1rem solid;
+    display: block;
 }
 
 .datosMostrados p {
     margin: auto;
     margin-top: 0.5rem;
+    display: inline-block;
+    width: 85%;
+}
+
+.datosMostrados button {
+    color: #e7e7e7;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    position: relative;
+    background: transparent;
+    border: none;
+}
+
+.datosMostrados button:hover {
+    box-shadow: none;
+    transform: scale(1.5);
+    transition: all 0.5s ease;
+}
+
+.datosMostrados button:active {
+    transform: scale(0.85);
+    transition: all 0.5s ease;
+}
+
+.datosMostrados button:focus {
+    outline: none;
+}
+
+.datosMostrados h4 {
+    margin: auto;
+    margin-top: 0.5rem;
+    font-weight: 400;
 }
 
 .btnCerrar {
@@ -240,11 +274,11 @@ input {
         height: 10rem;
         transition: all 500ms ease-in-out;
         gap: 2rem;
-        grid-template-rows: 10% 5% 10%; 
-        grid-template-areas: 
-        "titulo titulo"
-        "btnAgregar btnTema"
-        "buscar buscar";
+        grid-template-rows: 10% 5% 10%;
+        grid-template-areas:
+            "titulo titulo"
+            "btnAgregar btnTema"
+            "buscar buscar";
     }
 
     header h1 {
@@ -256,12 +290,12 @@ input {
         transition: all 500ms ease;
     }
 
-    header input{
+    header input {
         margin: auto;
         margin-top: 6%;
     }
 
-    .btnCerrar{
+    .btnCerrar {
         margin-top: -10%;
     }
 
@@ -270,10 +304,11 @@ input {
         margin-left: 30%;
     }
 
-    #btnTema{
+    #btnTema {
         margin-top: 5%;
         margin-right: 30%;
     }
+
     .contenedor {
         max-width: 20rem;
         overflow: hidden;
@@ -285,13 +320,11 @@ input {
     }
 }
 
-@media screen and (max-width: 1063px) and (min-width: 600px){
+@media screen and (max-width: 1063px) and (min-width: 600px) {
     #elements {
         margin-top: 11rem;
     }
-    
 }
-
 
 @keyframes entradaSuave {
     0% {

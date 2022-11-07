@@ -9,10 +9,6 @@ const BTN_CERRAR = document.getElementById("btnCerrar");
 let contadorID = 0;
 let tema;
 let fechaInicio = new Date();
-
-//Formato
-//2013-10-08T12:05:00//
-
 let datosGuardados = [];
 cargarDesdeLocalStorage();
 
@@ -32,6 +28,8 @@ FORM_AGREGAR.addEventListener('click', () => {
     });
 });
 
+// Mediante este event listener podremos cambiar de tema cada vez que hacemos click
+// en nuestro boton de cambiar tema
 BTN_TEMA.addEventListener('click', () => {
     cambiarTema();
 });
@@ -95,8 +93,8 @@ function cargarDesdeLocalStorage() {
     imprimirTareasEnPantalla();
 }
 
+// Mediante esta funcion imprimimos en pantalla las tareas guardadas que agregamos
 function imprimirTareasEnPantalla() {
-    //elemento para mostrar en pantalla
     datosGuardados.forEach(elements => {
         mostrarDato(elements);
     });
@@ -114,8 +112,11 @@ function mostrarDato(datos) {
     const DIV = document.createElement("div");
     const P_ELMNT = document.createElement("p");
     const TITULO = document.createElement("h3");
-    const DESCRIPCION = document.createElement("p");
+    const DESCRIPCION = document.createElement("h4");
+    const BTN_BORRAR = document.createElement("button");
+    BTN_BORRAR.innerHTML = '<svg class="colorsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M7 6V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5zm6.414 8l1.768-1.768-1.414-1.414L12 12.586l-1.768-1.768-1.414 1.414L10.586 14l-1.768 1.768 1.414 1.414L12 15.414l1.768 1.768 1.414-1.414L13.414 14zM9 4v2h6V4H9z"/></svg>'
     DIV.className = "datosMostrados";
+    BTN_BORRAR.id = datos.Id;
     DIV.id = datos.Id;
     TITULO.innerHTML = `${datos.Nombre}`;
     DESCRIPCION.innerHTML = `${datos.Descripcion}`;
@@ -123,12 +124,17 @@ function mostrarDato(datos) {
     DIV.appendChild(TITULO);
     DIV.appendChild(DESCRIPCION);
     DIV.appendChild(P_ELMNT);
-    DIV.onclick = obtenerID;
+    DIV.appendChild(BTN_BORRAR);
+    BTN_BORRAR.onclick = eliminarID;
+    // DIV.onclick = eliminarID;
     let inicial = document.querySelector('.datosMostrados');
     ELEMENTS.insertBefore(DIV, inicial);
 }
 
-function obtenerID() {
+// Con esta funcion removemos de pantalla el elemento seleccionado
+// mostrando un mensaje de confirmacion, si se confirma, se borra
+// y si no se mantiene en pantalla.
+function eliminarID() {
     Swal.fire({
         title: 'Deseas eliminar la tarea?',
         text: "No podrás revertir los cambios!",
@@ -142,7 +148,8 @@ function obtenerID() {
     }).then((result) => {
         if (result.isConfirmed) {
             eliminar(this.id);
-            ELEMENTS.removeChild(this);
+            const divID = document.getElementById(this.id);
+            ELEMENTS.removeChild(divID);
             Swal.fire({
                 title: 'Tarea Eliminada',
                 background: "var(--color-Fondo)",
@@ -152,6 +159,8 @@ function obtenerID() {
     })
 }
 
+// Con esta funcion podemos eliminar la tarea que seleccionamos
+// mediante un ID y luego guardamos en nuestro LocalStorage
 function eliminar(id) {
     let index = -1;
     for (let este = 0; este < datosGuardados.length; este++) {
@@ -163,6 +172,8 @@ function eliminar(id) {
     actualizarLocalStorage();
 }
 
+// Esta funcion utiliza un script de Sweet Alert y mediante el 
+// creamos mensajes esteticos
 function mostrarMensajeListo() {
     Swal.fire({
         icon: 'success',
@@ -174,6 +185,7 @@ function mostrarMensajeListo() {
     })
 }
 
+// Mediante esta funcion seteamos los colores para el tema Claro
 function temaClaro() {
     document.documentElement.style.setProperty("--color-Fondo", "#e7e7e7");
     document.documentElement.style.setProperty("--color-Header", "#fff");
@@ -181,6 +193,7 @@ function temaClaro() {
     document.documentElement.style.setProperty("--color-Sombras", "#000000");
 }
 
+// Mediante esta funcion seteamos los colores para el tema Oscuro
 function temaOscuro() {
     document.documentElement.style.setProperty("--color-Fondo", "#121212");
     document.documentElement.style.setProperty("--color-Header", "#333");
@@ -188,24 +201,34 @@ function temaOscuro() {
     document.documentElement.style.setProperty("--color-Sombras", "#ffffff");
 }
 
+// Mediante esta funcion cambiamos el tema, y guardamos en nuestro localStorage
 function cambiarTema() {
     tema = !(tema);
     ponerTema();
     guardarTemaEnLS();
 }
 
+// Esta funcion se encarga de corroborar si el tema actual es el claro o el oscuro
+// para luego intercambiar de tema
 function ponerTema() {
     if (tema == true) temaClaro();
     else if (tema == false) temaOscuro();
 }
 
+// Esta funcion utilizamos para guardar el tema actual en el Local Storage
 function guardarTemaEnLS() {
     localStorage.setItem('Tema', tema);
 }
 
+
+// creamos nuestra constante BUSCADOR donde almacenamos el elemento InputBuscar
 const BUSCADOR = document.getElementById("inputBuscar");
+// Mediante un eventListener leemos los datos que se escribe en el buscador
+// y luego buscamos en nuestra lista de tareas
 BUSCADOR.addEventListener('input', () => { buscar(BUSCADOR.value) });
 
+// En esta funcion pasamos como parametro la palabra que queremos buscar
+// en nuestra lista y luego filtramos e imprimimos en la pantalla el resultado
 function buscar(palabra) {
     if (palabra.length == 0) {
         ELEMENTS.innerHTML = '';
@@ -214,6 +237,8 @@ function buscar(palabra) {
     else filtrarTareasEnPantalla(filtrarTareas(palabra));
 }
 
+// Mediante esta funcion recibimos la palabra a filtrar y agregamos a un arreglo auxiliar
+// por el cual usaremos luego para imprimir los resultados de la busqueda
 function filtrarTareas(nombre) {
     let listaFiltrada = [];
     for (let este = 0; este < datosGuardados.length; este++) {
@@ -223,6 +248,9 @@ function filtrarTareas(nombre) {
     }
     return listaFiltrada;
 }
+
+// Con esta funcion mostramos en pantalla la nueva lista auxiliar
+// que generamos mediante la busqueda con la funcion de arriba.
 function filtrarTareasEnPantalla(tareas) {
     ELEMENTS.innerHTML = '';
     tareas.forEach(elements => {
@@ -230,9 +258,16 @@ function filtrarTareasEnPantalla(tareas) {
     });
 }
 
+// Mediante esta funcion seteamos la fecha minima que podemos poner en nuestro
+// input de fecha. Y tambien seteamos que este seleccionada por defecto con el dia y tiempo actual
 function setearFechaMinima() {
     let fechaInicio = new Date();
-    let fechaMinima = `${fechaInicio.getFullYear()}-${fechaInicio.getMonth() + 1}-${'0' + fechaInicio.getDate()}T${fechaInicio.toLocaleTimeString()}`;
+    mes = (fechaInicio.getMonth() + 1);
+    dia = fechaInicio.getDate();
+    anho = fechaInicio.getFullYear();
+    horas = fechaInicio.toLocaleTimeString();
+    if (dia < 10) dia = '0' + dia;
+    let fechaMinima = `${anho}-${mes}-${dia}T${horas}`;
     FECHA.value = fechaMinima;
     FECHA.min = fechaMinima;
 }
