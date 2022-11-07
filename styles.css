@@ -11,6 +11,24 @@
     --transition: color 0.3s, backgroundColor 0.3s ease-in-out;
 }
 
+.contenedor {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 5px;
+    padding: 25px;
+    background-color: var(--color-Header);
+    max-width: 450px;
+    max-height: 350px;
+    box-shadow: 0px 0px 0.5rem var(--color-Sombras);
+    transition: var(--transition);
+    animation: entradaSuave 0.3s ease;
+}
+
 input[type=datetime-local]::-webkit-calendar-picker-indicator {
     font-size: 1.5rem;
     background-color: #e7e7e7;
@@ -86,24 +104,6 @@ header input {
     transition: var(--transition);
 }
 
-.contenedor {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    margin: auto;
-    border-radius: 5px;
-    padding: 25px;
-    background-color: var(--color-Header);
-    max-width: 450px;
-    max-height: 350px;
-    box-shadow: 0px 0px 0.5rem var(--color-Sombras);
-    transition: var(--transition);
-    animation: entradaSuave 0.3s ease;
-}
-
 form {
     margin: 20px 0;
 }
@@ -165,7 +165,6 @@ input {
 
 
 .colorsvg {
-    /* position: absolute; */
     color: var(--color-Letras);
     margin: auto;
     /* margin-right: 50%; */
@@ -230,7 +229,6 @@ input {
     height: 30px;
     width: 30px;
     display: inline-block;
-    position: relative;
     background: transparent;
     border: none;
 }
@@ -239,6 +237,7 @@ input {
     box-shadow: none;
     transform: scale(1.5);
     transition: all 0.5s ease;
+    cursor: pointer;
 }
 
 .datosMostrados button:active {

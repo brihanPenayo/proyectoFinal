@@ -114,13 +114,13 @@ function mostrarDato(datos) {
     const TITULO = document.createElement("h3");
     const DESCRIPCION = document.createElement("h4");
     const BTN_BORRAR = document.createElement("button");
-    BTN_BORRAR.innerHTML = '<svg class="colorsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M7 6V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5zm6.414 8l1.768-1.768-1.414-1.414L12 12.586l-1.768-1.768-1.414 1.414L10.586 14l-1.768 1.768 1.414 1.414L12 15.414l1.768 1.768 1.414-1.414L13.414 14zM9 4v2h6V4H9z"/></svg>'
     DIV.className = "datosMostrados";
     BTN_BORRAR.id = datos.Id;
     DIV.id = datos.Id;
     TITULO.innerHTML = `${datos.Nombre}`;
     DESCRIPCION.innerHTML = `${datos.Descripcion}`;
     P_ELMNT.innerHTML = `Vence en ${datos.Dias_Restantes} dias y <br/> ${datos.Horas_Restantes} hs.`
+    BTN_BORRAR.innerHTML = '<svg class="colorsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M7 6V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5zm6.414 8l1.768-1.768-1.414-1.414L12 12.586l-1.768-1.768-1.414 1.414L10.586 14l-1.768 1.768 1.414 1.414L12 15.414l1.768 1.768 1.414-1.414L13.414 14zM9 4v2h6V4H9z"/></svg>'
     DIV.appendChild(TITULO);
     DIV.appendChild(DESCRIPCION);
     DIV.appendChild(P_ELMNT);
